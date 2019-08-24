@@ -18,6 +18,9 @@ jobs:
       with:
         node-version: 12.x
 
+    - name: enable composer prestissimo
+      run: composer global require hirak/prestissimo
+
     - name: Install composer
       run: composer install --prefer-dist
 
