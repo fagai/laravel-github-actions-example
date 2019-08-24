@@ -1,0 +1,30 @@
+name: ci
+
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 2
+      matrix: 
+        php-version: [7.2, 7.3]
+
+    steps:
+    - uses: actions/checkout@v1
+
+    - name: use Node
+      uses: actions/setup-node@v1
+      with:
+        node-version: 12.x
+
+    - name: Install composer
+      run: composer install --prefer-dist
+    
+    - name: npm build
+      run: npm run production
+
+    - name: run phpunit
+      run: php vendor/bin/phpunit
+      
+
