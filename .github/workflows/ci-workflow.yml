@@ -20,6 +20,9 @@ jobs:
 
     - name: Install composer
       run: composer install --prefer-dist
+
+    - name: npm install
+      run: npm install
     
     - name: npm build
       run: npm run production
