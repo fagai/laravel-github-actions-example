@@ -6,20 +6,23 @@ jobs:
   build:
     runs-on: ubuntu-latest
     strategy:
-      max-parallel: 2
       matrix: 
-        php-version: [7.2, 7.3]
+        php-version: [7.2, 7.3, 7.4]
 
     steps:
     - uses: actions/checkout@v1
+
+    - name: Setup PHP, with composer and extensions
+      uses: shivammathur/setup-php@v1
+      with:
+        php-version: ${{ matrix.php-version }}
+        extensions: mbstring, dom, fileinfo, mysql
+        tools: prestissimo
 
     - name: use Node
       uses: actions/setup-node@v1
       with:
         node-version: 12.x
-
-    - name: enable composer prestissimo
-      run: composer global require hirak/prestissimo
 
     - name: Install composer
       run: composer install --prefer-dist
